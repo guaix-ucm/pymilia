@@ -27,6 +27,9 @@
 
 double (milia::metrics::flrw::*age0)() const = &milia::metrics::flrw::age;
 double (milia::metrics::flrw::*age1)(double) const = &milia::metrics::flrw::age;
+double (milia::metrics::flrw::*dc1)(double) const = &milia::metrics::flrw::dc;
+double (milia::metrics::flrw::*dm1)(double) const = &milia::metrics::flrw::dm;
+double (milia::metrics::flrw::*da1)(double) const = &milia::metrics::flrw::da;
 
 void translate(milia::exception const& e) {
 	// Use the Python 'C' API to set up an exception object
@@ -36,23 +39,27 @@ void translate(milia::exception const& e) {
 BOOST_PYTHON_MODULE(milia) {
 	using namespace boost::python;
 	class_<milia::metrics::flrw>("metric", init<double, double, double>())
-	.def("dl", &milia::metrics::flrw::distance_luminosity,
+	.def("dl", &milia::metrics::flrw::dl,
 			args("redshift"),
 			"returns the luminosity distance"
 	)
-	.def("dc", &milia::metrics::flrw::distance_comoving,
+	.def("luminosity_distance", &milia::metrics::flrw::dl,
+			args("redshift"),
+			"returns the luminosity distance"
+	)
+	.def("dc", dc1,
 			args("redshift"),
 			"returns the comoving distance in the line of sight"
 	)
-	.def("dm", &milia::metrics::flrw::distance_comoving_transverse,
+	.def("dm", dm1,
 			args("redshift"),
 			"returns the comoving distance in the transverse direction"
 	)
-	.def("da", &milia::metrics::flrw::distance_angular,
+	.def("da", da1,
 			args("redshift"),
 			"returns the angular distance"
 	)
-	.def("lt", &milia::metrics::flrw::lookback_time,
+	.def("lt", &milia::metrics::flrw::lt,
 			args("redshift"),
 			"returns the look-back time"
 	)
