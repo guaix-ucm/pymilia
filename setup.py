@@ -3,7 +3,7 @@
 from distutils.core import setup, Extension
 
 setup(name='pymilia',
-      version='0.1.0',
+      version='0.1.1',
       author='Sergio Pascual',
       author_email='spr@astrax.fis.ucm.es',
       url='https://halmax.fis.ucm.es/projects/milia/wiki',

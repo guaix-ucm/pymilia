@@ -63,6 +63,10 @@ BOOST_PYTHON_MODULE(milia) {
 			args("redshift"),
 			"returns the look-back time"
 	)
+	.def("vol", &milia::metrics::flrw::vol,
+			args("redshift"),
+			"returns the comoving volume per solid angle"
+	)
 	.def("age", age0,args(""),
 			"returns the current age of the Universe (at redshift 0)"
 	)
