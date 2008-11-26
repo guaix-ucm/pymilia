@@ -30,6 +30,7 @@ double (milia::metrics::flrw::*age1)(double) const = &milia::metrics::flrw::age;
 double (milia::metrics::flrw::*dc1)(double) const = &milia::metrics::flrw::dc;
 double (milia::metrics::flrw::*dm1)(double) const = &milia::metrics::flrw::dm;
 double (milia::metrics::flrw::*da1)(double) const = &milia::metrics::flrw::da;
+double (milia::metrics::flrw::*vol1)(double) const = &milia::metrics::flrw::vol;
 
 void translate(milia::exception const& e) {
 	// Use the Python 'C' API to set up an exception object
@@ -63,7 +64,7 @@ BOOST_PYTHON_MODULE(milia) {
 			args("redshift"),
 			"returns the look-back time"
 	)
-	.def("vol", &milia::metrics::flrw::vol,
+	.def("vol", vol1,
 			args("redshift"),
 			"returns the comoving volume per solid angle"
 	)
