@@ -25,26 +25,32 @@
 
 #include <boost/python.hpp>
 
-double (milia::metrics::flrw::*age0)() const = &milia::metrics::flrw::age;
-double (milia::metrics::flrw::*age1)(double) const = &milia::metrics::flrw::age;
-double (milia::metrics::flrw::*dc1)(double) const = &milia::metrics::flrw::dc;
-double (milia::metrics::flrw::*dm1)(double) const = &milia::metrics::flrw::dm;
-double (milia::metrics::flrw::*da1)(double) const = &milia::metrics::flrw::da;
-double (milia::metrics::flrw::*vol1)(double) const = &milia::metrics::flrw::vol;
+namespace mt = milia::metrics;
+
+double (mt::flrw::*age0)() const = &mt::flrw::age;
+double (mt::flrw::*age1)(double) const = &mt::flrw::age;
+double (mt::flrw::*dc1)(double) const = &mt::flrw::dc;
+double (mt::flrw::*dm1)(double) const = &mt::flrw::dm;
+double (mt::flrw::*da1)(double) const = &mt::flrw::da;
+double (mt::flrw::*vol1)(double) const = &mt::flrw::vol;
 
 void translate(milia::exception const& e) {
 	// Use the Python 'C' API to set up an exception object
 	PyErr_SetString(PyExc_UserWarning, e.what());
 }
 
-BOOST_PYTHON_MODULE(milia) {
+BOOST_PYTHON_MODULE(metrics) {
 	using namespace boost::python;
-	class_<milia::metrics::flrw>("metric", init<double, double, double>())
-	.def("dl", &milia::metrics::flrw::dl,
+	
+	scope().attr("__doc__") = "metrics' docstring";
+	
+	
+	class_<mt::flrw>("Flrw", init<double, double, double>())
+	.def("dl", &mt::flrw::dl,
 			args("redshift"),
 			"returns the luminosity distance"
 	)
-	.def("luminosity_distance", &milia::metrics::flrw::dl,
+	.def("luminosity_distance", &mt::flrw::dl,
 			args("redshift"),
 			"returns the luminosity distance"
 	)
@@ -60,7 +66,7 @@ BOOST_PYTHON_MODULE(milia) {
 			args("redshift"),
 			"returns the angular distance"
 	)
-	.def("lt", &milia::metrics::flrw::lt,
+	.def("lt", &mt::flrw::lt,
 			args("redshift"),
 			"returns the look-back time"
 	)
