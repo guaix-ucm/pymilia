@@ -1,2 +1,2 @@
 include MANIFEST.in README.txt COPYING 
-include milia_wrap.cc
+recursive-include src *
