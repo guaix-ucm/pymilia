@@ -1,21 +1,21 @@
-/* 
+/*
  * Copyright 2008 Sergio Pascual
- * 
+ *
  * This file is part of PyMilia
- * 
+ *
  * PyMilia is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * PyMilia is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with PyMilia.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 
 // $Id$
@@ -41,10 +41,10 @@ void translate(milia::exception const& e) {
 
 BOOST_PYTHON_MODULE(metrics) {
 	using namespace boost::python;
-	
+
 	scope().attr("__doc__") = "metrics' docstring";
-	
-	
+
+
 	class_<mt::flrw>("Flrw", init<double, double, double>())
 	.def("dl", &mt::flrw::dl,
 			args("redshift"),
@@ -78,7 +78,8 @@ BOOST_PYTHON_MODULE(metrics) {
 			"returns the current age of the Universe (at redshift 0)"
 	)
 	.def("age", age1, args("redshift"), "returns the age of the Universe")
-	.def(str(self))
+	//.def(self_ns::str(self))
+    .def("__str__",&mt::flrw::to_string)
 	;
 
 	register_exception_translator<milia::exception>(&translate);
