@@ -52,18 +52,6 @@ namespace my
   {
     return py::extract<double>(fp(0.1));
   }
-
-  /*    class<...>(...)
-   .def("__str__", boost::lexical_cast<std::string, MyClass const &>)
-
-   if MyClass is streamable. If it's not, you can always do something
-   totally custom:*/
-
-  static std::string schechter__str__(lf::schechter const &self)
-  {
-    return std::string("Whatever I want.");
-  }
-
 }
 
 BOOST_PYTHON_MODULE(lumfuncs)
@@ -82,7 +70,8 @@ BOOST_PYTHON_MODULE(lumfuncs)
   .def("object_density", &lf::schechter::object_density)
   //.def("luminosity_density", &lf::schechter::luminosity_density)
   .def("parameters", &lf::schechter::parameters)
-  .def("__str__", &my::schechter__str__);
+  .def(str(self))
+  ;
 
   def("foo", &my::foo);
 }

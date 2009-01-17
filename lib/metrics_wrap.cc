@@ -77,7 +77,9 @@ BOOST_PYTHON_MODULE(metrics) {
 	.def("age", age0,args(""),
 			"returns the current age of the Universe (at redshift 0)"
 	)
-	.def("age", age1, args("redshift"), "returns the age of the Universe") ;
+	.def("age", age1, args("redshift"), "returns the age of the Universe")
+	.def(str(self))
+	;
 
 	register_exception_translator<milia::exception>(&translate);
 }
