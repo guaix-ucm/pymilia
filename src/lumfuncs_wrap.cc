@@ -49,11 +49,6 @@ namespace my
         return py::incref(my::tuple_to_python(tuple3).ptr());
       }
   };
-
-  double foo(py::object fp)
-  {
-    return py::extract<double>(fp(0.1));
-  }
 }
 
 BOOST_PYTHON_MODULE(lumfuncs)
