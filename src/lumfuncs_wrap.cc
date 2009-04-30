@@ -29,7 +29,7 @@ namespace lf = milia::luminosity_functions;
 namespace py = boost::python;
 namespace lbd = boost::lambda;
 
-/*
+
 typedef boost::tuple<double, double, double> Tuple3Type;
 
 
@@ -55,13 +55,13 @@ namespace my
     return py::extract<double>(fp(0.1));
   }
 }
-*/
+
 BOOST_PYTHON_MODULE(lumfuncs)
 {
   using namespace boost::python;
 
   // Registers the tuple conversion
-  //to_python_converter<Tuple3Type, my::tuple3_to_python> ();
+  to_python_converter<Tuple3Type, my::tuple3_to_python> ();
 
   scope().attr("__doc__") = "lumfuncs' docstring";
 
@@ -76,5 +76,4 @@ BOOST_PYTHON_MODULE(lumfuncs)
   .def("__str__",&lf::schechter::to_string)
   ;
 
-  //def("foo", &my::foo);
 }
