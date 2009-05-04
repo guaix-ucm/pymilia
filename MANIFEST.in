@@ -1,2 +1,2 @@
-include MANIFEST.in README.txt COPYING 
+include MANIFEST.in README.txt NEWS.txt COPYING 
 recursive-include src *
