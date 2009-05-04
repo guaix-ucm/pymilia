@@ -1,0 +1,6 @@
+Version 0.2.1
+(04 May 2009, from /milia/trunk)
+http://guaix.fis.ucm.es/svn/pymilia/tags/0.2.1/
+
+Bugfixes:
+ * Schechter.parameters() can't return tuple (ticket #19)
