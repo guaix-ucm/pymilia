@@ -1,5 +1,5 @@
 /*
- * Copyright 2008 Sergio Pascual
+ * Copyright 2008-2009 Sergio Pascual
  *
  * This file is part of PyMilia
  *
@@ -20,10 +20,9 @@
 
 // $Id$
 
+#include <boost/python.hpp>
 #include <milia/metric.h>
 #include <milia/exception.h>
-
-#include <boost/python.hpp>
 
 namespace mt = milia::metrics;
 
@@ -42,44 +41,62 @@ void translate(milia::exception const& e) {
 BOOST_PYTHON_MODULE(metrics) {
 	using namespace boost::python;
 
-	scope().attr("__doc__") = "metrics' docstring";
+	scope().attr("__doc__") = "Metrics that are solutions of Einstein's equations.\n"
+	    "\n"
+	    "This module contains the Friedman-Lemaitre-Robertson-Walker (Flrw) metric\n";
 
 
-	class_<mt::flrw>("Flrw", init<double, double, double>())
+	class_<mt::flrw>("Flrw", "The Friedmann-Lemaitre-Robertson-Walker metric\n"
+	    "\n"
+	    "This class represents a FLRW metric. Its methods compute the\n"
+	    "common cosmological distances and times.",
+	    init<double, double, double>("Create a Flrw object.\n"
+	        "\n"
+	        "The constructor takes three parameters:\n"
+	        "hubble parameter in km / s / Mpc\n"
+	        "matter density (adimensional)\n"
+	        "vacuum energy density (adimensional)",
+	        (args("hubble"),args("matter"),args("vacuum"))))
 	.def("dl", &mt::flrw::dl,
 			args("redshift"),
-			"returns the luminosity distance"
+			"Return the luminosity distance in Mpc."
 	)
 	.def("luminosity_distance", &mt::flrw::dl,
 			args("redshift"),
-			"returns the luminosity distance"
+			"Return the luminosity distancein Mpc."
 	)
 	.def("dc", dc1,
 			args("redshift"),
-			"returns the comoving distance in the line of sight"
+			"Return the comoving distance in the line of sight in Mpc."
 	)
 	.def("dm", dm1,
 			args("redshift"),
-			"returns the comoving distance in the transverse direction"
+			"Return the comoving distance in the transverse direction in Mpc."
 	)
 	.def("da", da1,
 			args("redshift"),
-			"returns the angular distance"
+			"Return the angular distance in Mpc."
 	)
 	.def("lt", &mt::flrw::lt,
 			args("redshift"),
-			"returns the look-back time"
+			"Return the look-back time in Gyr."
 	)
 	.def("vol", vol1,
 			args("redshift"),
-			"returns the comoving volume per solid angle"
+			"Return the comoving volume per solid angle in Mpc^3 / sr"
 	)
-	.def("age", age0,args(""),
-			"returns the current age of the Universe (at redshift 0)"
+	.def("age", age0, args(""),
+			"Return the current age of the Universe (at redshift 0) in Gyr."
 	)
-	.def("age", age1, args("redshift"), "returns the age of the Universe")
-	//.def(self_ns::str(self))
-    .def("__str__",&mt::flrw::to_string)
+    .def("angular_scale", &mt::flrw::angular_scale, args("redshift"),
+			"Return the factor to transform angular sizes in pc / arc sec."
+	)
+	.def("age", age1, args("redshift"), "Return the age of the Universe in Gyr.")
+	//.def(str(self))
+    .def("__str__", &mt::flrw::to_string)
+    .add_property("hubble", &mt::flrw::get_hubble, &mt::flrw::set_hubble)
+    .add_property("matter", &mt::flrw::get_matter, &mt::flrw::set_matter)
+    .add_property("vacuum", &mt::flrw::get_vacuum, &mt::flrw::set_vacuum)
 	;
 
 	register_exception_translator<milia::exception>(&translate);
