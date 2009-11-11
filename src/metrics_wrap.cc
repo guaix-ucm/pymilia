@@ -33,6 +33,11 @@ double (mt::flrw::*dm1)(double) const = &mt::flrw::dm;
 double (mt::flrw::*da1)(double) const = &mt::flrw::da;
 double (mt::flrw::*vol1)(double) const = &mt::flrw::vol;
 
+double (mt::flrw::*gh)() const = &mt::flrw::get_hubble;
+double (mt::flrw::*gm)() const = &mt::flrw::get_matter;
+double (mt::flrw::*gv)() const = &mt::flrw::get_vacuum;
+
+
 void translate(milia::exception const& e) {
 	// Use the Python 'C' API to set up an exception object
 	PyErr_SetString(PyExc_UserWarning, e.what());
@@ -94,9 +99,9 @@ BOOST_PYTHON_MODULE(metrics) {
 	.def("age", age1, args("redshift"), "Return the age of the Universe in Gyr.")
 	//.def(str(self))
     .def("__str__", &mt::flrw::to_string)
-    .add_property("hubble", &mt::flrw::get_hubble, &mt::flrw::set_hubble)
-    .add_property("matter", &mt::flrw::get_matter, &mt::flrw::set_matter)
-    .add_property("vacuum", &mt::flrw::get_vacuum, &mt::flrw::set_vacuum)
+    .add_property("hubble", gh, &mt::flrw::set_hubble)
+    .add_property("matter", gm, &mt::flrw::set_matter)
+    .add_property("vacuum", gv, &mt::flrw::set_vacuum)
 	;
 
 	register_exception_translator<milia::exception>(&translate);
