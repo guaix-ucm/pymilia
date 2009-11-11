@@ -1,3 +1,6 @@
+Version 0.2.2
+(11 November 2009, from /pymilia/trunk revision 140)
+https://guaix.fis.ucm.es/svn/milia/pymilia/tags/0.2.2/
 
 Enhancements: 
  * Added documentation (thanks to N. Gruel) 
@@ -6,7 +9,7 @@ Enhancements:
  * Properties added (ticket #7)
 
 Version 0.2.1
-(04 May 2009, from /milia/trunk)
+(04 May 2009, from /milia/trunk revision 76)
 http://guaix.fis.ucm.es/svn/pymilia/tags/0.2.1/
 
 Bugfixes:

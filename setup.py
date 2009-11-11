@@ -8,7 +8,7 @@ ext2 = Extension('milia.lumfuncs', ['src/lumfuncs_wrap.cc'],
   libraries = ['boost_python', 'milia', 'gsl', 'gslcblas'])
 
 setup(name='pymilia',
-      version='0.2.1',
+      version='0.2.2',
       author='Sergio Pascual',
       author_email='sergiopr@astrax.fis.ucm.es',
       url='https:// halmax.fis.ucm.es/projects/milia/wiki',
