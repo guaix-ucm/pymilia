@@ -1,3 +1,13 @@
+Version 0.3.0
+(18 January 2010, from /pymilia/trunk revision 162)
+https://guaix.fis.ucm.es/svn/milia/pymilia/tags/0.3.0/
+
+Pymilia compatible with milia >= 0.3.0
+
+Enhancements:
+ * Wraps metric::flrw_nat
+ * Wraps metric::flrw::hubble_radius and metric::flrw::hubble_time 
+
 Version 0.2.2
 (11 November 2009, from /pymilia/trunk revision 140)
 https://guaix.fis.ucm.es/svn/milia/pymilia/tags/0.2.2/
@@ -9,7 +19,7 @@ Enhancements:
  * Properties added (ticket #7)
 
 Version 0.2.1
-(04 May 2009, from /milia/trunk revision 76)
+(04 May 2009, from /pymilia/trunk revision 76)
 http://guaix.fis.ucm.es/svn/pymilia/tags/0.2.1/
 
 Bugfixes:

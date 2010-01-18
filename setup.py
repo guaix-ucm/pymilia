@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from distutils.core import setup, Extension
+from setuptools import setup, Extension
 
 ext1 = Extension('milia.metrics', ['src/metrics_wrap.cc'],
   libraries=['boost_python', 'milia', 'gsl', 'gslcblas'])
@@ -8,11 +8,11 @@ ext2 = Extension('milia.lumfuncs', ['src/lumfuncs_wrap.cc'],
   libraries=['boost_python', 'milia', 'gsl', 'gslcblas'])
 
 setup(name='pymilia',
-      version='0.2.2',
+      version='0.3.0',
       author='Sergio Pascual',
       author_email='sergiopr@astrax.fis.ucm.es',
       url='https://guaix.fis.ucm.es/projects/milia/wiki',
-      download_url='ftp://astrax.fis.ucm.es/pub/users/spr/milia/pymilia-0.2.2.tar.gz',
+      download_url='ftp://astrax.fis.ucm.es/pub/users/spr/milia/pymilia-0.3.0.tar.gz',
       license='GPLv3',
       description='Cosmological distances and ages',
       package_dir={'milia': 'lib/milia'},
