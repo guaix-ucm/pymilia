@@ -18,7 +18,6 @@
  *
  */
 
-// $Id$
 
 #include <boost/python.hpp>
 #include <milia/flrw.h>

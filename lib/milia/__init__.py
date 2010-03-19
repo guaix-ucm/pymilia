@@ -16,6 +16,5 @@
 # along with PyMilia.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# $Id$
 
 '''The milia package'''

@@ -18,7 +18,6 @@
  *
  */
 
-// $Id$
 
 #include <boost/python.hpp>
 #include <boost/python/tuple.hpp>
