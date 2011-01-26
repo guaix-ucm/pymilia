@@ -16,7 +16,7 @@ setup(name='pymilia',
       license='GPLv3',
       description='Cosmological distances and ages',
       package_dir={'milia': 'lib/milia'},
-      packages=['milia'],
+      packages=['milia', 'milia.tests'],
       ext_modules=[ext1, ext2],
       classifiers=[
         "Programming Language :: Python",
