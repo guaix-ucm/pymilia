@@ -2,10 +2,20 @@
 
 from setuptools import setup, Extension
 
-ext1 = Extension('milia.metrics', ['src/metrics_wrap.cc'],
-  libraries=['boost_python', 'milia', 'gsl', 'gslcblas'])
-ext2 = Extension('milia.lumfuncs', ['src/lumfuncs_wrap.cc'],
-  libraries=['boost_python', 'milia', 'gsl', 'gslcblas'])
+import commands
+
+## {{{ http://code.activestate.com/recipes/502261/ (r1)
+def pkgconfig(*packages, **kw):
+    flag_map = {'-I': 'include_dirs', '-L': 'library_dirs', '-l': 'libraries'}
+    for token in commands.getoutput("pkg-config --libs --cflags %s" % ' '.join(packages)).split():
+        kw.setdefault(flag_map.get(token[:2]), []).append(token[2:])
+    return kw
+
+kw = pkgconfig('milia', 'gsl', libraries=['boost_python'])
+
+
+ext1 = Extension('milia.metrics', ['src/metrics_wrap.cc'], **kw)
+ext2 = Extension('milia.lumfuncs', ['src/lumfuncs_wrap.cc'], **kw)
 
 setup(name='pymilia',
       version='0.3.0',
