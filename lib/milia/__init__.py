@@ -19,4 +19,4 @@
 
 '''The milia package'''
 
-from _milia import Flrw
+from _milia import Flrw, FlrwNat
