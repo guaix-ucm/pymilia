@@ -18,51 +18,52 @@
 
 import unittest
 
-from milia import Flrw
-from milia.tests import isclose, model
+from milia import FlrwNat, Flrw
+from milia.tests import isclose
+from milia.tests import model_nat as model
 
-class FlrwTest(unittest.TestCase):
+class FlrwNatTest(unittest.TestCase):
 
     def test_luminosity_distance(self):
         for param, checktup in model['lum']:
-            mm = Flrw(*param)
+            mm = FlrwNat(*param)      
             for d, z, _tol in checktup:                
                 self.assertTrue(isclose(mm.dl(z), d))
     
     def test_angular_distance(self):
         for param, checktup in model['ang']:
-            mm = Flrw(*param)
+            mm = FlrwNat(*param)
             for d, z, _tol in checktup:                
                 self.assertTrue(isclose(mm.da(z), d))
 
     def test_comoving_transverse_distance(self):
         for param, checktup in model['cotran']:
-            mm = Flrw(*param)
+            mm = FlrwNat(*param)
             for d, z, _tol in checktup:                
                 self.assertTrue(isclose(mm.dm(z), d))
     
     def test_comoving_distance(self):
         for param, checktup in model['com']:
-            mm = Flrw(*param)
+            mm = FlrwNat(*param)
             for d, z, _tol in checktup:                
                 self.assertTrue(isclose(mm.dc(z), d))
     
     def test_age(self):
         for param, checktup in model['age']:
-            mm = Flrw(*param)
+            mm = FlrwNat(*param)
             for d, z, _tol in checktup:
                 self.assertTrue(isclose(mm.age(z), d))
                 
     
     def test_comoving_volume(self):
         for param, checktup in model['vol']:
-            mm = Flrw(*param)
+            mm = FlrwNat(*param)
             for d, z, _tol in checktup:
                 self.assertTrue(isclose(mm.vol(z), d))
     
 def test_suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(FlrwTest))
+    suite.addTest(unittest.makeSuite(FlrwNatTest))
     return suite
 
 if __name__ == '__main__':
