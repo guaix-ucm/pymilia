@@ -14,7 +14,7 @@ def pkgconfig(*packages, **kw):
 kw = pkgconfig('milia', 'gsl', libraries=['boost_python'])
 
 
-ext1 = Extension('milia', ['src/metrics_wrap.cc'], **kw)
+ext1 = Extension('milia._milia', ['src/metrics_wrap.cc'], **kw)
 
 setup(name='pymilia',
       version='0.4.0alpha',

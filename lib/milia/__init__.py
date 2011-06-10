@@ -19,4 +19,4 @@
 
 '''The milia package'''
 
-from milia.metrics import Flrw
+from _milia import Flrw

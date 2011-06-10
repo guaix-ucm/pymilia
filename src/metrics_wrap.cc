@@ -49,7 +49,7 @@ void translate(milia::exception const& e) {
 	PyErr_SetString(PyExc_UserWarning, e.what());
 }
 
-BOOST_PYTHON_MODULE(metrics) {
+BOOST_PYTHON_MODULE(_milia) {
 	using namespace boost::python;
 
 	scope().attr("__doc__") = "Metrics that are solutions of Einstein's equations.\n"
