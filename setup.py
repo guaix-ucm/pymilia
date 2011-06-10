@@ -14,20 +14,19 @@ def pkgconfig(*packages, **kw):
 kw = pkgconfig('milia', 'gsl', libraries=['boost_python'])
 
 
-ext1 = Extension('milia.metrics', ['src/metrics_wrap.cc'], **kw)
-ext2 = Extension('milia.lumfuncs', ['src/lumfuncs_wrap.cc'], **kw)
+ext1 = Extension('milia', ['src/metrics_wrap.cc'], **kw)
 
 setup(name='pymilia',
-      version='0.3.0',
+      version='0.4.0alpha',
       author='Sergio Pascual',
       author_email='sergiopr@fis.ucm.es',
-      url='https://guaix.fis.ucm.es/projects/milia/wiki',
-      download_url='ftp://astrax.fis.ucm.es/pub/users/spr/milia/pymilia-0.3.0.tar.gz',
+      url='https://guaix.fis.ucm.es/projects/pymilia/wiki',
+      download_url='ftp://astrax.fis.ucm.es/pub/users/spr/milia/pymilia-0.4.0.tar.gz',
       license='GPLv3',
       description='Cosmological distances and ages',
       package_dir={'milia': 'lib/milia'},
       packages=['milia', 'milia.tests'],
-      ext_modules=[ext1, ext2],
+      ext_modules=[ext1],
       classifiers=[
         "Programming Language :: Python",
         "Development Status :: 4 - Beta",
