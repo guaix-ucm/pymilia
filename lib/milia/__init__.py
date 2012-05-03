@@ -20,3 +20,5 @@
 
 from ._milia import FlrwNat
 from ._milia import Flrw
+
+Metric = Flrw
