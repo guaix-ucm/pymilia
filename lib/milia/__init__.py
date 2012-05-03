@@ -1,5 +1,5 @@
 #
-# Copyright 2009-2011 Sergio Pascual
+# Copyright 2009-2012 Sergio Pascual
 # 
 # This file is part of PyMilia
 # 
@@ -16,7 +16,7 @@
 # along with PyMilia.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-
 '''The milia package'''
 
-from _milia import Flrw, FlrwNat
+from ._milia import FlrwNat
+from ._milia import Flrw
