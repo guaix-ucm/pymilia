@@ -6,4 +6,5 @@ syntax: glob
 syntax: regexp
 
 ^build$
+^dist$
 ^pymilia\.egg-info$
