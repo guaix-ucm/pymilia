@@ -44,7 +44,7 @@ cdef class FlrwNat:
         '''The constructor takes two parameters:
 
         :param matter: mater density [adimensional]
-        :param:vacuum: vacuum energy density [adimensional]
+        :param vacuum: vacuum energy density [adimensional]
 
         '''
         self.thisptr = new flrw_nat(matter, vacuum)
@@ -123,6 +123,9 @@ cdef class FlrwNat:
         def __get__(self): return self.thisptr.get_vacuum()
         def __set__(self, m): self.thisptr.set_vacuum(m)
 
+    def __str__(self):
+        return 'milia.FlrwNat(matter=%f, vacuum=%f)' % (self.matter, self.vacuum)
+
 cdef class Flrw:
     '''The Friedmann-Lemaitre-Robertson-Walker metric
 
@@ -135,7 +138,7 @@ cdef class Flrw:
 
         :param hubble: Hubble parameter in km / s / Mpc
         :param matter: mater density (adimensional)
-        :param:vacuum: vacuum energy density (adimensional)
+        :param vacuum: vacuum energy density (adimensional)
 
         '''
 
@@ -231,6 +234,9 @@ cdef class Flrw:
         
         '''
         return self.thisptr.hubble_radius()
+
+    def __str__(self):
+        return 'milia.Flrw(hubble=%f, matter=%f, vacuum=%f)' % (self.hubble, self.matter, self.vacuum)
 
     property matter:
         def __get__(self): return (<flrw_nat *>(self.thisptr)).get_matter()
