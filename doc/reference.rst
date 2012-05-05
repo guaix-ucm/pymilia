@@ -1,70 +1,9 @@
 
-:mod:`numina` reference
+:mod:`milia` reference
 =======================
 
-.. py:module:: numina
+.. py:module:: milia
    :synopsis: Metric classes
-
-.. py:class:: FlrwNat(matter, vacuum)
-
-    The Friedmann-Lemaitre-Robertson-Walker metric in natural units.
-
-    This class represents a FLRW metric in natural units. Its methods 
-    compute the common cosmological distances and times.
-
-    
-    :param matter: mater density [adimensional]
-    :param vacuum: vacuum energy density [adimensional]
-
-
-    .. method:: age(z)
-
-        Return the age of the Universe [adimensional].
-
-        :param z: redshift
-        :returns: age of the Universe [adimensional].
-
-    .. method:: dc(z)
-        Return the comoving distance in the line of sight [adimensional]
-
-        :param z: redshift
-        :returns: comoving distance in the line of sight [adimensional]
-        
-    .. method:: dl(z)
-        Return the luminosity distance [adimensional]
-
-        :param z: redshift
-        :returns: luminosity distance [adimensional]
-
-    .. method dm(z)
-        Return the comoving distance in transverse direction [adimensional].
-
-        :param z: redshift
-        :returns: comoving distance in transverse direction [adimensional]
-        
-    .. method:: da(z)
-        Return the angular distance [adimensional].
-        
-        :param z: redshift
-        :returns: angular distance [adimensional]
-        
-    .. method:: lt(z)
-        Return the look-back time [adimensional].
-        
-        :param z: redshift
-        :returns: look-back time in [adimensional]
-        
-    .. method:: vol(z)
-        '''Return comoving volume per solid angle [adimensional].
-        
-        :param z: redshift
-        :returns: comoving volume per solid angle [adimensional]
-
-    .. py:attribute:: matter
-
-        Matter density
-
-    .. py:attribute:: vacuum
 
 .. py:class:: Flrw(hubble, matter, vacuum)
 
@@ -163,3 +102,64 @@
 
     .. py:attribute:: vacuum
     .. py:attribute:: hubble
+.. py:class:: FlrwNat(matter, vacuum)
+
+    The Friedmann-Lemaitre-Robertson-Walker metric in natural units.
+
+    This class represents a FLRW metric in natural units. Its methods 
+    compute the common cosmological distances and times.
+
+    
+    :param matter: mater density [adimensional]
+    :param vacuum: vacuum energy density [adimensional]
+
+
+    .. method:: age(z)
+
+        Return the age of the Universe [adimensional].
+
+        :param z: redshift
+        :returns: age of the Universe [adimensional].
+
+    .. method:: dc(z)
+        Return the comoving distance in the line of sight [adimensional]
+
+        :param z: redshift
+        :returns: comoving distance in the line of sight [adimensional]
+        
+    .. method:: dl(z)
+        Return the luminosity distance [adimensional]
+
+        :param z: redshift
+        :returns: luminosity distance [adimensional]
+
+    .. method dm(z)
+        Return the comoving distance in transverse direction [adimensional].
+
+        :param z: redshift
+        :returns: comoving distance in transverse direction [adimensional]
+        
+    .. method:: da(z)
+        Return the angular distance [adimensional].
+        
+        :param z: redshift
+        :returns: angular distance [adimensional]
+        
+    .. method:: lt(z)
+        Return the look-back time [adimensional].
+        
+        :param z: redshift
+        :returns: look-back time in [adimensional]
+        
+    .. method:: vol(z)
+        '''Return comoving volume per solid angle [adimensional].
+        
+        :param z: redshift
+        :returns: comoving volume per solid angle [adimensional]
+
+    .. py:attribute:: matter
+
+        Matter density
+
+    .. py:attribute:: vacuum
+
