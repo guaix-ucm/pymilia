@@ -8,3 +8,4 @@ syntax: regexp
 ^build$
 ^dist$
 ^pymilia\.egg-info$
+^src/milia.cpp$
