@@ -1,5 +1,5 @@
 
-cdef extern from "milia/flrw_nat.h" namespace "milia::metrics":
+cdef extern from "milia/flrw_nat.h" namespace "milia":
     cdef cppclass flrw_nat:
         flrw_nat(double, double) except+
         double dc(double)
@@ -15,9 +15,9 @@ cdef extern from "milia/flrw_nat.h" namespace "milia::metrics":
         double get_vacuum()
         double set_vacuum(double)
 
-cdef extern from "milia/metric.h" namespace "milia":
-    cdef cppclass metric:
-        metric(double, double, double) except+
+cdef extern from "milia/flrw.h" namespace "milia":
+    cdef cppclass flrw:
+        flrw(double, double, double) except+
         double dc(double)
         double dm(double)
         double da(double)
@@ -27,8 +27,8 @@ cdef extern from "milia/metric.h" namespace "milia":
         double age()
         double age(double)
         double angular_scale(double)
-        double hubble_radius()
-        double hubble_time()
+#        double hubble_radius()
+#        double hubble_time()
         double get_hubble()
         double set_hubble(double)
 
@@ -132,7 +132,7 @@ cdef class Flrw:
     This class represents a FLRW metric. Its methods compute the
     common cosmological distances and times.
     '''
-    cdef metric *thisptr
+    cdef flrw *thisptr
     def __cinit__(self, double hubble, double matter, double vacuum):
         '''The constructor takes three parameters:
 
@@ -142,7 +142,7 @@ cdef class Flrw:
 
         '''
 
-        self.thisptr = new metric(hubble, matter, vacuum)
+        self.thisptr = new flrw(hubble, matter, vacuum)
 
     def __dealloc__(self):
         del self.thisptr
@@ -218,22 +218,6 @@ cdef class Flrw:
         
         '''
         return self.thisptr.vol(z)
-
-    def hubble_radius(self):
-        '''Return the Hubble radius [Mpc].
-        
-        :returns: Hubble radius [Mpc]
-        
-        '''
-        return self.thisptr.hubble_radius()
-
-    def hubble_time(self):
-        '''Return the Hubble time [Gyr].
-        
-        :returns: Hubble time [Gyr]
-        
-        '''
-        return self.thisptr.hubble_radius()
 
     def __str__(self):
         return 'milia.Flrw(hubble=%f, matter=%f, vacuum=%f)' % (self.hubble, self.matter, self.vacuum)
