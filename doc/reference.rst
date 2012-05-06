@@ -30,7 +30,7 @@
     :throws milia.no_big_bang:
 
 
-    .. method:: age(z)
+    .. method:: age([z=0.0])
         Return the age of the Universe [Gyr].
 
         :param z: redshift
@@ -86,22 +86,18 @@
         :param z: redshift
         :returns: comoving volume per solid angle [Mpc^3 sr^-1]
         
-    .. method:: hubble_radius()
-        Return the Hubble radius [Mpc].
-        
-        :returns: Hubble radius [Mpc]
-        
-    .. method:: hubble_time()
-        Return the Hubble time [Gyr].
-        
-        :returns: Hubble time [Gyr]
-        
     .. py:attribute:: matter
 
         Matter density
 
     .. py:attribute:: vacuum
+
+        Vacuum energy density
+
     .. py:attribute:: hubble
+
+        Hubble parameter
+
 .. py:class:: FlrwNat(matter, vacuum)
 
     The Friedmann-Lemaitre-Robertson-Walker metric in natural units.
@@ -114,7 +110,7 @@
     :param vacuum: vacuum energy density [adimensional]
 
 
-    .. method:: age(z)
+    .. method:: age([z=0.0])
 
         Return the age of the Universe [adimensional].
 
@@ -163,3 +159,4 @@
 
     .. py:attribute:: vacuum
 
+        Vacuum energy density

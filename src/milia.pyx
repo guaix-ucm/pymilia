@@ -27,8 +27,6 @@ cdef extern from "milia/flrw.h" namespace "milia":
         double age()
         double age(double)
         double angular_scale(double)
-#        double hubble_radius()
-#        double hubble_time()
         double get_hubble()
         double set_hubble(double)
 
@@ -52,14 +50,17 @@ cdef class FlrwNat:
     def __dealloc__(self):
         del self.thisptr
 
-    def age(self, z):
+    def age(self, z=None):
         '''Return the age of the Universe [adimensional].
 
         :param z: redshift
         :returns: age of the Universe [adimensional].
 
         '''
-        return self.thisptr.age(z)
+        if z is not None:
+            return self.thisptr.age(z)
+        else:
+            return self.thisptr.age()
 
     def dc(self, z):
         '''Return the comoving distance in the line of sight [adimensional].
@@ -147,14 +148,17 @@ cdef class Flrw:
     def __dealloc__(self):
         del self.thisptr
 
-    def age(self, z):
+    def age(self, z=None):
         '''Return the age of the Universe [Gyr].
 
         :param z: redshift
         :returns: age of the Universe [Gyr].
 
         '''
-        return self.thisptr.age(z)
+        if z is not None:
+            return self.thisptr.age(z)
+        else:
+            return self.thisptr.age()
 
     def angular_scale(self, z):
         '''Return the factor to transform angular sizes in pc to arc sec.
