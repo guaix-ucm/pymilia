@@ -24,5 +24,3 @@ warnings.warn("the milia.metrics module is deprecated, use milia instead",
 
 from ._milia import FlrwNat
 from ._milia import Flrw
-
-Metric = Flrw
