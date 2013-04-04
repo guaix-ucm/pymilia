@@ -7,13 +7,12 @@ ext1=Extension('milia._milia', ['src/milia.pyx'],
                language="c++",
                libraries=['milia'])
 
-
 setup(name='pymilia',
       version='1.0.0dev',
       author='Sergio Pascual',
-      author_email='sergiopr@astrax.fis.ucm.es',
-      url='https://guaix.fis.ucm.es/projects/milia/wiki',
-      download_url='ftp://astrax.fis.ucm.es/pub/users/spr/milia/pymilia-1.0.0dev.tar.gz',
+      author_email='sergiopr@fis.ucm.es',
+      url='https://guaix.fis.ucm.es/projects/pymilia/wiki',
+      download_url='ftp://astrax.fis.ucm.es/pub/software/pymilia-1.0.0.tar.gz',
       license='GPLv3',
       description='Cosmological distances and ages',
       package_dir={'milia': 'lib/milia'},
