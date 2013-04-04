@@ -1,5 +1,5 @@
 #
-# Copyright 2009-2012 Sergio Pascual
+# Copyright 2009-2013 Sergio Pascual
 # 
 # This file is part of PyMilia
 # 
@@ -16,9 +16,11 @@
 # along with PyMilia.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-'''The milia package'''
+'''Cosmological metrics'''
+
+import warnings
+warnings.warn("the milia.metrics module is deprecated, use milia instead", 
+        DeprecationWarning, stacklevel=2)
 
 from ._milia import FlrwNat
 from ._milia import Flrw
-
-Metric = Flrw
