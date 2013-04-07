@@ -8,7 +8,7 @@ ext1=Extension('milia._milia', ['src/milia.pyx'],
                libraries=['milia'])
 
 setup(name='pymilia',
-      version='1.0.0dev',
+      version='1.1.0dev',
       author='Sergio Pascual',
       author_email='sergiopr@fis.ucm.es',
       url='https://guaix.fis.ucm.es/projects/pymilia/wiki',
