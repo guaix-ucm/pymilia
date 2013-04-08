@@ -24,6 +24,27 @@ import math
 
 from scipy.special import cbrt, ellipkinc
 
+M_SQRT3 = math.sqrt(3)
+M_4THRT3 = math.sqrt(M_SQRT3)
+
+def sinc(k, a, x):
+    if k == 1:
+        return math.sin(a * x) / a
+    elif k == -1:
+        return math.sinh(a * x) / a
+    elif k == 0:
+        return x
+    return 0
+
+def asinc(k, a, x):
+    if k == 1:
+        return math.asin(a * x) / a
+    elif k == -1:
+        return math.asinh(a * x) / a
+    elif k == 0:
+        return x
+    return 0
+
 class FlrwNat(object):
     '''The Friedmann-Lemaitre-Robertson-Walker metric in natural units.
 
@@ -41,14 +62,13 @@ class FlrwNat(object):
         self.om = matter
         self.ov = vacuum
         self.ok = 1 - matter - vacuum
+        self.kap = -1 if self.ok > 0 else 1
         self.sqok = math.sqrt(abs(self.ok))
 
         if self.ok != 0:
             self.crit = -13.5 * self.om**2 * self.ov / self.ok**3;
         else:
             self.crit = None
-
-        self.kap = -1 if self.ok > 0 else 1
 
         class _CC(object):
             NO_CASE = -1 # error condition
@@ -88,7 +108,7 @@ class FlrwNat(object):
                 if l3:
                     if vacuum == 1:
                         return cls.OM_DS
-                    if 0 < vaccum < 1:
+                    if 0 < vacuum < 1:
                         return cls.OM
                 if ok == 0:
                     return cls.OM_OV_1
@@ -98,7 +118,7 @@ class FlrwNat(object):
                 elif 0 < crit < 2:
                     return cls.A2_2
                 else:
-                    return cls.A2_1
+                    return cls.A1
 
                 return cls.NO_CASE
 
@@ -141,8 +161,6 @@ class FlrwNat(object):
         elif self.case == self.CC.OM_DS:
             return z * (z + 1)
         elif self.case == self.CC.OM_OV_1:
-            M_SQRT3 = math.sqrt(3)
-            M_4THRT3 = math.sqrt(M_SQRT3)
             k = 0.5 + 0.25 * M_SQRT3
             arg0 = cbrt(1 / self.om - 1)
             down = 1 + (1 + M_SQRT3) * arg0
@@ -150,6 +168,28 @@ class FlrwNat(object):
             phi = math.acos((z + up) / (z + down))
             phi0 = math.acos(up / down)
             return (1 + z) / math.sqrt(M_SQRT3 * self.om * arg0) * (ellipkinc(phi0, k) - ellipkinc(phi, k))
+
+        elif self.case == self.CC.A1:
+            v = cbrt(self.kap * (self.crit - 1) + math.sqrt(self.crit * (self.crit - 2)))
+            y = (-1 + self.kap * (v + 1. / v)) / 3
+            A = math.sqrt(y * (3 * y + 2))
+            g = 1 / math.sqrt(A)
+            k = 0.5 + 0.25 * g * g * (v + 1 / v)
+            sup = self.om / abs(self.ok)
+            phi = math.acos(((1 + z) * sup + self.kap * y - A) / ((1 + z) * sup + self.kap * y + A))
+            phi0 = math.acos((sup + self.kap * y - A) / (sup + self.kap * y + A)) 
+            return (1 + z) / self.sqok * sinc(self.kap, 1.0, g * (ellipkinc(phi0, k) - ellipkinc(phi, k)))
+        elif self.case in (self.CC.A2_1, self.CC.A2_2):
+            arg0 = math.acos(1 - self.crit) / 3
+            arg1 = self.om / abs(self.ok);
+            y1 = (-1 + math.cos(arg0) + M_SQRT3 * math.sin(arg0)) / 3
+            y2 = (-1 - 2 * math.cos(arg0)) / 3
+            y3 = (-1 + math.cos(arg0) - M_SQRT3 * math.sin(arg0)) / 3
+            g = 2 / math.sqrt(y1 - y2)
+            k = (y1 - y3) / (y1 - y2)
+            phi = math.asin(math.sqrt((y1 - y2) / ((1 + z) * arg1 + y1)))
+            phi0 = math.asin(math.sqrt((y1 - y2) / (arg1 + y1)))
+            return (1. + z) / self.sqok * math.sin(g * (ellipkinc(phi0, k) - ellipkinc(phi, k)))
         return 0
 
     def dm(self, z):
@@ -203,13 +243,17 @@ class FlrwNat(object):
         return self._dm_from_dl(z, dl) / (1 + z)
 
     def _dc_from_dm(self, z, dm):
-        return 0
+        if self.case in (self.CC.OM_DS, self.CC.OM_OV_1, self.CC.OV_EDS):
+            return dm
+        return asinc(self.kap, self.sqok, dm)
 
     def _dm_from_dl(self, z, dl):
         return dl / (1 + z)
 
     def _vol_from_dm(self, z, dm):
-        return 0
+        if self.case in (self.CC.OM_DS, self.CC.OM_OV_1, self.CC.OV_EDS):
+            return dm * dm * dm / 3
+        return (dm * math.sqrt(1 + self.ok * dm * dm) - asinc(self.kap, self.sqok, dm)) / (2 * self.ok)
 
 class Flrw(object):
     '''The Friedmann-Lemaitre-Robertson-Walker metric
