@@ -18,7 +18,7 @@
 
 import unittest
 
-from milia.pure import Flrw
+from milia.factory import Flrw
 from milia.tests import isclose, model
 
 class FlrwTest(unittest.TestCase):

@@ -363,10 +363,3 @@ class Flrw(object):
 #        def __get__(self): return self.thisptr.get_hubble()
 #        def __set__(self, m): self.thisptr.set_hubble(m)
 
-if __name__ == '__main__':
-
-    a = FlrwNat(0.3, 0.7)
-    print a.dl(1)
-    print 1.5428541328556231
-    print a.dm(1)
-    print 0.7714270664278116
