@@ -269,7 +269,9 @@ class Flrw(object):
         :param vacuum: vacuum energy density (adimensional)
 
         '''
-        pass
+        self.nat = FlrwNat(matter, vacuum)
+        self.hubble = hubble
+        self.hubble_radius = 299792.458 / self.hubble
 
     def age(self, z=None):
         '''Return the age of the Universe [Gyr].
@@ -299,7 +301,7 @@ class Flrw(object):
         :returns: comoving distance in the line of sight [Mpc]
         
         '''
-        return 0
+        return self.hubble_radius * self.nat.dc(z)
         
     def dl(self, z):
         '''Return the luminosity distance [Mpc].
@@ -308,7 +310,7 @@ class Flrw(object):
         :returns: luminosity distance [Mpc]
 
         '''
-        return 0
+        return self.hubble_radius * self.nat.dl(z)
 
     def dm(self, z):
         '''Return the comoving distance in transverse direction [Mpc].
@@ -317,7 +319,7 @@ class Flrw(object):
         :returns: comoving distance in transverse direction [Mpc]
         
         '''
-        return 0
+        return self.hubble_radius * self.nat.dm(z)
 
     def da(self, z):
         '''Return the angular distance [Mpc].
@@ -326,7 +328,7 @@ class Flrw(object):
         :returns: angular distance [Mpc] 
         
         '''
-        return 0
+        return self.hubble_radius * self.nat.da(z)
 
     def lt(self, z):
         '''Return the look-back time [Gyr].
@@ -344,7 +346,7 @@ class Flrw(object):
         :returns: comoving volume per solid angle [Mpc^3 sr^-1]
         
         '''
-        return 0
+        return self.hubble_radius * self.hubble_radius * self.hubble_radius * self.nat.vol(z)
 
     def __str__(self):
         return 'milia.Flrw(hubble=%f, matter=%f, vacuum=%f)' % (self.hubble, self.matter, self.vacuum)
