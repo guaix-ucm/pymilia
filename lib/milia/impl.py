@@ -16,31 +16,38 @@
 # along with PyMilia.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-'''Pure Python implementation of Flrw'''
+'''Pure Python implementation of Flrw and FlrwNat'''
 
 from __future__ import division
 
 import math
 
-from factory import FlrwNat
-
-class Flrw(object):
+class FlrwBaseImpl(object):
     '''The Friedmann-Lemaitre-Robertson-Walker metric
 
     This class represents a FLRW metric. Its methods compute the
     common cosmological distances and times.
     '''
-    def __init__(self, hubble, matter, vacuum):
+    def __init__(self, matter, vacuum):
         '''The constructor takes three parameters:
 
-        :param hubble: Hubble parameter in km / s / Mpc
         :param matter: mater density (adimensional)
         :param vacuum: vacuum energy density (adimensional)
 
         '''
-        self.nat = FlrwNat(matter, vacuum)
-        self.hubble = hubble
-        self.hubble_radius = 299792.458 / self.hubble
+        self.om = matter
+        self.ov = vacuum
+        self.ok = 1 - matter - vacuum
+        self.kap = -1 if self.ok > 0 else 1
+        self.sqok = math.sqrt(abs(self.ok))
+
+    @property 
+    def matter(self):
+        return self.om
+
+    @property 
+    def vaccum(self):
+        return self.ov
 
     def age(self, z=None):
         '''Return the age of the Universe [Gyr].
@@ -70,7 +77,7 @@ class Flrw(object):
         :returns: comoving distance in the line of sight [Mpc]
         
         '''
-        return self.hubble_radius * self.nat.dc(z)
+        raise NotImplementedError
         
     def dl(self, z):
         '''Return the luminosity distance [Mpc].
@@ -79,7 +86,8 @@ class Flrw(object):
         :returns: luminosity distance [Mpc]
 
         '''
-        return self.hubble_radius * self.nat.dl(z)
+        print self
+        raise NotImplementedError
 
     def dm(self, z):
         '''Return the comoving distance in transverse direction [Mpc].
@@ -88,7 +96,7 @@ class Flrw(object):
         :returns: comoving distance in transverse direction [Mpc]
         
         '''
-        return self.hubble_radius * self.nat.dm(z)
+        return self.dl(z) / (1 + z)
 
     def da(self, z):
         '''Return the angular distance [Mpc].
@@ -97,7 +105,7 @@ class Flrw(object):
         :returns: angular distance [Mpc] 
         
         '''
-        return self.hubble_radius * self.nat.da(z)
+        return self.dl(z) / ((1 + z) * (1 + z))
 
     def lt(self, z):
         '''Return the look-back time [Gyr].
@@ -115,20 +123,8 @@ class Flrw(object):
         :returns: comoving volume per solid angle [Mpc^3 sr^-1]
         
         '''
-        return self.hubble_radius * self.hubble_radius * self.hubble_radius * self.nat.vol(z)
+        raise NotImplementedError
 
     def __str__(self):
-        return 'milia.Flrw(hubble=%f, matter=%f, vacuum=%f)' % (self.hubble, self.matter, self.vacuum)
-
-#    property matter:
-#        def __get__(self): return (<flrw_nat *>(self.thisptr)).get_matter()
-#        def __set__(self, m): (<flrw_nat *>(self.thisptr)).set_matter(m)
-
-#    property vacuum:
-#        def __get__(self): return (<flrw_nat *>(self.thisptr)).get_vacuum()
-#        def __set__(self, m): (<flrw_nat *>(self.thisptr)).set_vacuum(m)
-
-#    property hubble:
-#        def __get__(self): return self.thisptr.get_hubble()
-#        def __set__(self, m): self.thisptr.set_hubble(m)
+        return 'milia.Flrw(matter=%f, vacuum=%f)' % (self.om, self.ov)
 
