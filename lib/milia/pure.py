@@ -41,6 +41,7 @@ class Flrw(object):
         self.nat = FlrwNat(matter, vacuum)
         self.hubble = hubble
         self.hubble_radius = 299792.458 / self.hubble
+        self.hubble_time =  977.792222 / self.hubble
 
     def age(self, z=None):
         '''Return the age of the Universe [Gyr].
@@ -49,10 +50,7 @@ class Flrw(object):
         :returns: age of the Universe [Gyr].
 
         '''
-        if z is not None:
-            return 0
-        else:
-            return 0
+        return self.hubble_time * self.nat.age(z)
 
     def angular_scale(self, z):
         '''Return the factor to transform angular sizes in pc to arc sec.
@@ -118,7 +116,7 @@ class Flrw(object):
         return self.hubble_radius * self.hubble_radius * self.hubble_radius * self.nat.vol(z)
 
     def __str__(self):
-        return 'milia.Flrw(hubble=%f, matter=%f, vacuum=%f)' % (self.hubble, self.matter, self.vacuum)
+        return 'milia.Flrw(hubble=%f, matter=%f, vacuum=%f)' % (self.hubble, self.nat.om, self.nat.ov)
 
 #    property matter:
 #        def __get__(self): return (<flrw_nat *>(self.thisptr)).get_matter()
