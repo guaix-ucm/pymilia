@@ -131,6 +131,9 @@ class FlrwA1(FlrwA):
         phi0 = math.acos((sup + self.kap * y - A) / (sup + self.kap * y + A)) 
         return (1 + z) / self.sqok * sinc(self.kap, 1.0, g * (ellipkinc(phi0, k) - ellipkinc(phi, k)))
 
+    def age(self, z):
+        return 0.0
+
 class FlrwA2(FlrwA):
     def __init__(self, matter, vacuum):
         super(FlrwA2, self).__init__(matter, vacuum)
