@@ -98,7 +98,8 @@ class Flrw_OV_1(Flrw_OV):
 
     def age(self, z):
         prez = self.pre(z)
-        return (prez / (1 + z) - self.om / math.sqrt(pre0) * math.atanh(math.sqrt(pre0) / prez)) / pre0
+        pre0 = self.pre0
+        return (prez / (1 + z) - self.om / math.sqrt(pre0) * math.atanh(math.sqrt(pre0) / prez)) / self.pre0
 
 class Flrw_OV_2(Flrw_OV):
     def __init__(self, matter):
@@ -106,7 +107,8 @@ class Flrw_OV_2(Flrw_OV):
 
     def age(self, z):
         prez = self.pre(z)
-        return (prez / (1 + z) - self.om / math.sqrt(-pre0) * math.atan(math.sqrt(-pre0) / prez)) / pre0
+        pre0 = self.pre0
+        return (prez / (1 + z) - self.om / math.sqrt(-pre0) * math.atan(math.sqrt(-pre0) / prez)) / self.pre0
         
 
 class FlrwA(FlrwNonFlat):
