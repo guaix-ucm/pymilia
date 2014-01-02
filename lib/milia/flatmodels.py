@@ -21,6 +21,7 @@
 from __future__ import division
 
 import math
+from math import sqrt
 from scipy.special import cbrt, ellipkinc
 
 from impl import FlrwBaseImpl
