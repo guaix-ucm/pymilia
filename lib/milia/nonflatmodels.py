@@ -110,13 +110,13 @@ class Flrw_OV_2(Flrw_OV):
         
 
 class FlrwA(FlrwNonFlat):
-    def __init__(self, matter, vacuum):
+    def __init__(self, matter, vacuum, crit):
         super(FlrwA, self).__init__(matter, vacuum)
-        self.crit = -13.5 * matter**2 * vacuum / self.ok**3
+        self.crit = crit
 
 class FlrwA1(FlrwA):
-    def __init__(self, matter, vacuum):
-        super(FlrwA1, self).__init__(matter, vacuum)
+    def __init__(self, matter, vacuum, crit):
+        super(FlrwA1, self).__init__(matter, vacuum, crit)
 
     def dl(self, z):
         v = cbrt(self.kap * (self.crit - 1) + math.sqrt(self.crit * (self.crit - 2)))
@@ -147,9 +147,9 @@ class FlrwA2(FlrwA):
 
 class FlrwA2_1(FlrwA2):
     def __init__(self, matter, vacuum):
-        super(FlrwA2_1, self).__init__(matter, vacuum)
+        super(FlrwA2_1, self).__init__(matter, vacuum, 2.0)
 
 class FlrwA2_2(FlrwA2):
-    def __init__(self, matter, vacuum):
-        super(FlrwA2_2, self).__init__(matter, vacuum)
+    def __init__(self, matter, vacuum, crit):
+        super(FlrwA2_2, self).__init__(matter, vacuum, crit)
 
