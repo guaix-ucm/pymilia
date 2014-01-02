@@ -56,10 +56,7 @@ class FlrwBaseImpl(object):
         :returns: age of the Universe [Gyr].
 
         '''
-        if z is not None:
-            return 0
-        else:
-            return 0
+        raise NotImplementedError
 
     def angular_scale(self, z):
         '''Return the factor to transform angular sizes in pc to arc sec.
@@ -86,7 +83,6 @@ class FlrwBaseImpl(object):
         :returns: luminosity distance [Mpc]
 
         '''
-        print self
         raise NotImplementedError
 
     def dm(self, z):
@@ -114,7 +110,7 @@ class FlrwBaseImpl(object):
         :returns: look-back time [Gyr]
         
         '''
-        return 0
+        return self.age(0) - self.age(z)
 
     def vol(self, z):
         '''Return comoving volume per solid angle [Mpc^3 sr^-1]
